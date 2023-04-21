@@ -1,1 +1,25 @@
-{"tasks":[{"task_id":1,"title":"Assignment","description":"Build a RESTful API for a simple task manager application.","completed":false},{"task_id":2,"title":"Additional feature","description":"Include some additional features like priority assignment in the API.","completed":false},{"task_id":3,"title":"Error Handling","description":"Add proper error handling for each API.","completed":false}]}
+{
+  "tasks": [
+    {
+      "task_id": 1,
+      "title": "Assignment",
+      "description": "Build a RESTful API for a simple task manager application.",
+      "completed": false,
+      "priority": "high"
+    },
+    {
+      "task_id": 2,
+      "title": "Additional feature",
+      "description": "Include some additional features like priority assignment in the API.",
+      "completed": false,
+      "priority": "low"
+    },
+    {
+      "task_id": 3,
+      "title": "Error Handling",
+      "description": "Add proper error handling for each API.",
+      "completed": false,
+      "priority": "medium"
+    }
+  ]
+}
