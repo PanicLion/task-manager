@@ -18,7 +18,7 @@
       "task_id": 3,
       "title": "Error Handling",
       "description": "Add proper error handling for each API.",
-      "completed": false,
+      "completed": true,
       "priority": "medium"
     }
   ]

@@ -11,7 +11,17 @@ const fs = require('fs');
 const levels = ['high', 'medium', 'low'];
 
 taskRoutes.get('/', (req, res) => {
-    res.status(200).send(taskData);
+    let filteredTasks = taskData.tasks;
+    if (req.query.completed){
+        let completedFlag = (req.query.completed === 'true');
+        filteredTasks = taskData.tasks.filter(task => task.completed === completedFlag);
+    }
+    if (filteredTasks.length === 0) {
+        return res.status(404).json({
+            "message": "No task found."
+        });
+    }
+    res.status(200).send(filteredTasks);
 });
 
 
@@ -71,6 +81,7 @@ taskRoutes.put('/:taskId', (req, res) => {
                     task.title = taskDetails.title;
                     task.description = taskDetails.description;
                     task.completed = taskDetails.completed;
+                    task.property = taskDetails.property;
                     break;
                 }
             }
