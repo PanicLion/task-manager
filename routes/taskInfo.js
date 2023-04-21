@@ -8,9 +8,20 @@ const fs = require('fs');
 // taskRoutes.use(bodyParser.urlencoded({ extended: false }));
 // taskRoutes.use(bodyParser.json());
 
+const levels = ['high', 'medium', 'low'];
 
 taskRoutes.get('/', (req, res) => {
-    res.status(200).send(taskData);
+    let filteredTasks = taskData.tasks;
+    if (req.query.completed){
+        let completedFlag = (req.query.completed === 'true');
+        filteredTasks = taskData.tasks.filter(task => task.completed === completedFlag);
+    }
+    if (filteredTasks.length === 0) {
+        return res.status(404).json({
+            "message": "No task found."
+        });
+    }
+    res.status(200).send(filteredTasks);
 });
 
 
@@ -70,6 +81,7 @@ taskRoutes.put('/:taskId', (req, res) => {
                     task.title = taskDetails.title;
                     task.description = taskDetails.description;
                     task.completed = taskDetails.completed;
+                    task.property = taskDetails.property;
                     break;
                 }
             }
@@ -116,6 +128,26 @@ taskRoutes.delete('/:taskId', (req, res) => {
     res.status(200).json({
         "success": "Task deleted successfully."
     });
+});
+
+
+taskRoutes.get('/priority/:level', (req, res) => {
+    let priorityPassed = req.params.level.toLowerCase()
+    if (levels.includes(priorityPassed)) {
+        let filteredTasks = taskData.tasks.filter(task => task.priority === priorityPassed);
+
+        if (filteredTasks.length === 0) {
+            return res.status(404).json({
+                "error": "No Task found for given priority."
+            });
+        }
+        res.status(200).json(filteredTasks);
+    }
+    else {
+        res.status(400).json({
+            "error": "Please provide a valid priority."
+        });
+    }
 });
 
 module.exports = taskRoutes;
