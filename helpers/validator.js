@@ -5,7 +5,9 @@ class Validator {
             taskInfo.hasOwnProperty("title") &&
             taskInfo.hasOwnProperty("description") &&
             taskInfo.hasOwnProperty("completed") && 
-            typeof taskInfo.completed === 'boolean'){
+            typeof taskInfo.completed === 'boolean' &&
+            taskInfo.title.length >= 3 &&
+            taskInfo.description.length >= 5){
                 return true;
         }
         return false;    
